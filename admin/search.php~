@@ -1,0 +1,47 @@
+
+<?php
+if(!isset($_SESSION["isok"]) && $_SESSION["isok"] != "admin")
+{
+	header('HTTP/1.1 403 Forbidden');
+	header("status: 403 Forbidden"); 
+	include "../403.php";
+	exit();
+}
+?>
+
+<form name="myform" method="post" action="search.php">
+          <input name="searchname" type="text" id="searchname" size="25"> 
+          &nbsp;
+          <input type="submit" name="Submit" value="search">
+</form>
+
+
+<?php
+
+    $sname = $_POST['searchname'];
+
+    include("../conn.php");
+
+    $sql = mysql_query("select * from user where username like '%".trim($sname)."%' order by username");
+    $info = mysql_fetch_array($sql);
+    
+
+    if($info==false){
+        echo "<div align='center' style='color:#FF0000; font-size:18px'>Sorry,not found!</div>";
+    }
+
+    do{ 
+
+        echo $info[username]."---".$info[password];
+        echo '<br/>';
+
+    }while($info=mysql_fetch_array($sql));
+    
+    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;***Found records:<font color="red">'.$nums = mysql_num_rows($sql).'</font>***';
+
+mysql_free_result($sql);
+mysql_close($db);
+
+?>
+
+

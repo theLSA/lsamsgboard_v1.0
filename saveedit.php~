@@ -1,0 +1,17 @@
+<?php
+include '../conn.php';
+
+$id = $_GET["id"];
+$econtent = $_POST["content"];
+$result = mysql_query("update lsamsgcnt set content='$econtent' where id=$id");
+
+if($result)
+{
+    echo "<script>alert('success edit!');location.href='../index.php';</script>";
+}
+else
+{
+    echo "failed editttttt!".mysql_error();
+}
+
+?>
