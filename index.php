@@ -85,6 +85,7 @@ echo '<br/>';
 
 
 <?php
+	    echo $_GET['page'] . "/" . $page_count . "<br/>";
             if($_GET['page']!=1){
                 echo "<a href=index.php?page=1>1</a>&nbsp;";
                 echo "<a href=index.php?page=".($_GET[page]-1)."><--</a>&nbsp;";
